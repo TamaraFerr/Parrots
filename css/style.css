@@ -52,7 +52,7 @@ img {
     position: absolute;
 }
 
-.costas {
+.frente {
     transform: rotateY(180deg);
     right: 0;
 }
