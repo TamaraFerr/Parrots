@@ -75,7 +75,7 @@ function desviraCard() {
 //embaralha os cards aleatóriamente a cada reset que dá no game
 (function embaralhaCard() {
     cards.forEach(card => {
-        let randomPos = Math.floor(Math.random() *12);
+        let randomPos = Math.floor(Math.random() -0.5);
         card.style.order = randomPos;
     });
 })();
