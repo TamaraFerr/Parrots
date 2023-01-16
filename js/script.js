@@ -1,4 +1,5 @@
 let hasFlippedCard = false;
+let trancaCard = false;
 let firstCard, secondCard;
 
 //renderização dos cards no jogo. Criando arrays com as imagens.
@@ -32,30 +33,49 @@ cards.forEach(card => card.addEventListener('click', flipCard));
 
 //adicionda e faz com que a carta flipe ao receber a classe 'selected'
 function flipCard() {
+    if (trancaCard) return;
     this.classList.toggle('selected');
-
     if(!hasFlippedCard){
         hasFlippedCard = true;
         firstCard = this;
-    } else {
-        hasFlippedCard = false;
-        secondCard = this;  
-        machCard();
-    }
+
+        return;
+    } 
+
+    hasFlippedCard = false;
+    secondCard = this;  
+    matchCard();    
 }
 
 //retira o evento de virar o card e verifica se ao virar os cards são correspondentes.
-function machCard() {
-    if (firstCard.dataset.index === secondCard.dataset.index && firstCard !== secondCard){
-        firstCard.removeEventListener('click' , flipCard);
-        secondCard.removeEventListener('click' , flipCard);
-       
-        console.log("isMach");
-    } else {
-        setTimeout(() => {
-            firstCard.classList.remove('selected');
-            secondCard.classList.remove('selected');
-        }, 1000)
-    }
+function matchCard() {
+    let isMatch = firstCard.dataset.index === secondCard.dataset.index && firstCard !== secondCard;
+    isMatch ? desabilitaCard() : desviraCard();
 }
 
+//funcção para desabiçitar as cartas que sejam iguais
+function desabilitaCard() {
+    firstCard.removeEventListener('click' , flipCard);
+    secondCard.removeEventListener('click' , flipCard);
+   
+    console.log("isMach");
+}
+
+//função para desvirar as cartas que sejam diferentes
+function desviraCard() {
+    trancaCard = true;
+
+    setTimeout(() => {
+        firstCard.classList.remove('selected');
+        secondCard.classList.remove('selected');
+        trancaCard = false;
+    }, 1000)
+}
+
+//embaralha os cards aleatóriamente a cada reset que dá no game
+(function embaralhaCard() {
+    cards.forEach(card => {
+        let randomPos = Math.floor(Math.random() *12);
+        card.style.order = randomPos;
+    });
+})();
