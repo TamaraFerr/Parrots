@@ -2,6 +2,9 @@ let hasFlippedCard = false;
 let trancaCard = false;
 let firstCard, secondCard;
 
+
+QtdDeCartas = prompt("Bem-vindo(a)! Com quantas cartas gostaria de jogar?");
+
 //renderização dos cards no jogo. Criando arrays com as imagens.
 const deskCard = document.querySelector("#desk");
 const imagens = [
@@ -79,3 +82,5 @@ function desviraCard() {
         card.style.order = randomPos;
     });
 })();
+
+fimDeJogo = alert("Você ganhou em x jogadas!");
